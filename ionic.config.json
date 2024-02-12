@@ -1,0 +1,7 @@
+{
+  "name": "fitapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
