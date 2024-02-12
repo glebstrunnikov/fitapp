@@ -191,6 +191,9 @@ const store = createStore({
     deleteDay(state, payload) {
       state.schedule.splice(payload.dayNumber, 1);
     },
+    addDay(state) {
+      state.schedule.push([]);
+    },
     toggleModal(state) {
       state.modalOpen = !state.modalOpen;
     },
@@ -236,6 +239,9 @@ const store = createStore({
     },
     deleteDay(context, payload) {
       context.commit("deleteDay", payload);
+    },
+    addDay(context) {
+      context.commit("addDay");
     },
     toggleEditMode(context) {
       context.commit("toggleEditMode");

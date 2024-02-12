@@ -3,6 +3,13 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Расписание тренировок</ion-title>
+        <ion-button
+          v-if="editMode"
+          :color="editBtnColor"
+          slot="end"
+          @click="addDay"
+          ><ion-icon slot="icon-only" :icon="sunny"></ion-icon
+        ></ion-button>
         <ion-button :color="editBtnColor" slot="end" @click="toggleEditMode"
           ><ion-icon slot="icon-only" :icon="pencilOutline"></ion-icon
         ></ion-button>
@@ -94,7 +101,7 @@ import {
 
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import { trashOutline, pencilOutline, close, add } from "ionicons/icons";
+import { trashOutline, pencilOutline, close, add, sunny } from "ionicons/icons";
 import ExerciseModal from "../components/ExerciseModal.vue";
 const store = useStore();
 
@@ -167,6 +174,9 @@ function deleteEx(dayNumber, exNumber) {
 }
 function deleteDay(dayNumber) {
   store.dispatch("deleteDay", { dayNumber: dayNumber });
+}
+function addDay() {
+  store.dispatch("addDay");
 }
 function toggleEditMode() {
   store.dispatch({ type: "toggleEditMode" });
