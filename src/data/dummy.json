@@ -1,49 +1,49 @@
 [
     [
         {
-            "ex_id": 1,
+            "exId": 1,
             "sets": 3,
             "times": 12,
             "weight": "0",
             "comment": ""
         },
         {
-            "ex_id": 2,
+            "exId": 2,
             "sets": 3,
             "times": 12,
             "weight": "0",
             "comment": ""
         },
         {
-            "ex_id": 3,
+            "exId": 3,
             "sets": 3,
             "times": 12,
             "weight": "0",
             "comment": ""
         },
         {
-            "ex_id": 4,
+            "exId": 4,
             "sets": 3,
             "times": 12,
             "weight": "0",
             "comment": ""
         },
         {
-            "ex_id": 5,
+            "exId": 5,
             "sets": 3,
             "times": 12,
             "weight": "0",
             "comment": ""
         },
         {
-            "ex_id": 6,
+            "exId": 6,
             "sets": 3,
             "times": 12,
             "weight": "0",
             "comment": ""
         },
         {
-            "ex_id": 7,
+            "exId": 7,
             "sets": 3,
             "times": 12,
             "weight": "0",
@@ -52,7 +52,7 @@
     ],
     [
         {
-            "ex_id": 8,
+            "exId": 8,
             "sets": 3,
             "times": 12,
             "weight": "0",

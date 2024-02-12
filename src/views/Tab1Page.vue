@@ -8,18 +8,37 @@
         ></ion-button>
       </ion-toolbar>
     </ion-header>
+
     <ion-content :fullscreen="true">
       <exercise-modal
         :dayNumber="dayNumberInSpotlight"
         :exNumber="exNumberInSpotlight"
       ></exercise-modal>
+
       <ion-header collapse="condense"> </ion-header>
+
       <ion-card v-for="(day, dayNumber) in data" :key="dayNumber">
         <ion-card-header>
           <ion-card-title>День {{ dayNumber + 1 }}</ion-card-title>
-          <ion-card-subtitle>Subtitle {{ editMode }}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
+          <ion-button
+            v-if="editMode"
+            slot="start"
+            @click="toggleAlert(true, dayNumber)"
+            ><ion-icon :icon="close"></ion-icon
+          ></ion-button>
+
+          <ion-alert
+            :is-open="alertOpen"
+            header="Точно удалить?"
+            :buttons="alertBtns"
+          ></ion-alert>
+
+          <ion-button v-if="editMode" slot="end"
+            ><ion-icon :icon="add"></ion-icon
+          ></ion-button>
+          <ion-card-subtitle>Subtitle {{ editMode }}</ion-card-subtitle>
           <ion-list>
             <ion-item v-for="(ex, exNumber) in day" :key="exNumber">
               <ion-label @click="toggleModal(dayNumber, exNumber)"
@@ -45,6 +64,7 @@
 </template>
 
 <script setup>
+// IMPORTS
 import {
   IonPage,
   IonHeader,
@@ -58,30 +78,34 @@ import {
   IonCardTitle,
   IonButton,
   IonIcon,
-  IonButtons,
+  IonAlert,
 } from "@ionic/vue";
 
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import { trashOutline, pencilOutline } from "ionicons/icons";
+import { trashOutline, pencilOutline, close, add } from "ionicons/icons";
 import ExerciseModal from "../components/ExerciseModal.vue";
 const store = useStore();
 
+// VARS
 const editBtnColor = ref("primary");
 const editMode = computed(() => {
   return store.getters.editMode;
 });
-
 const data = computed(() => store.getters.data);
-
 const dayNumberInSpotlight = ref();
 const exNumberInSpotlight = ref();
+const alertOpen = ref(false);
 
+//FUNCTIONS
 function deleteEx(dayNumber, exNumber) {
   store.dispatch({
     type: "deleteEx",
     payload: { dayNumber: dayNumber, exNumber: exNumber },
   });
+}
+function deleteDay(dayNumber) {
+  store.dispatch("deleteDay", { dayNumber: dayNumber });
 }
 function toggleEditMode() {
   store.dispatch({ type: "toggleEditMode" });
@@ -96,11 +120,39 @@ function toggleModal(dayNumber, exNumber) {
   dayNumberInSpotlight.value = dayNumber;
   exNumberInSpotlight.value = exNumber;
 }
+function toggleAlert(state, dayNumber) {
+  console.log(alertOpen.value);
+  if (dayNumber) {
+    dayNumberInSpotlight.value = dayNumber;
+  }
+  if (state) {
+    alertOpen.value = state;
+    return;
+  } else {
+    alertOpen.value = !alertOpen.value;
+  }
+  console.log(alertOpen.value);
+}
 
-onMounted(() => {
-  // console.log(editMode);
-  // console.log(store.getters);
-});
+const alertBtns = [
+  {
+    text: "Отмена",
+    role: "cancel",
+    handler: () => {
+      toggleAlert(false);
+    },
+  },
+  {
+    text: "Удалить",
+    role: "confirm",
+    handler: () => {
+      deleteDay(dayNumberInSpotlight.value);
+      toggleAlert(false);
+    },
+  },
+];
+
+onMounted(() => {});
 </script>
 
 <style scoped>

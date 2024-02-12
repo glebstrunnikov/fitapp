@@ -114,6 +114,33 @@ const store = createStore({
             comment: "",
           },
         ],
+        [
+          {
+            exId: 8,
+            sets: 3,
+            times: 12,
+            weight: "0",
+            comment: "",
+          },
+        ],
+        [
+          {
+            exId: 8,
+            sets: 3,
+            times: 12,
+            weight: "0",
+            comment: "",
+          },
+        ],
+        [
+          {
+            exId: 8,
+            sets: 3,
+            times: 12,
+            weight: "0",
+            comment: "",
+          },
+        ],
       ],
       editMode: false,
       modalOpen: false,
@@ -161,6 +188,9 @@ const store = createStore({
         1
       );
     },
+    deleteDay(state, payload) {
+      state.schedule.splice(payload.dayNumber, 1);
+    },
     toggleModal(state) {
       state.modalOpen = !state.modalOpen;
     },
@@ -196,6 +226,9 @@ const store = createStore({
   actions: {
     deleteEx(context, payload) {
       context.commit("deleteEx", payload);
+    },
+    deleteDay(context, payload) {
+      context.commit("deleteDay", payload);
     },
     toggleEditMode(context) {
       context.commit("toggleEditMode");
