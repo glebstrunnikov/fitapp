@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-page @click="console.log('day in sl: ', dayNumberInSpotlight)">
     <ion-header>
       <ion-toolbar>
         <ion-title>Расписание тренировок</ion-title>
@@ -35,9 +35,19 @@
             :buttons="alertBtns"
           ></ion-alert>
 
-          <ion-button v-if="editMode" slot="end"
+          <ion-button
+            @click="togglePicker(true, dayNumber)"
+            v-if="editMode"
+            slot="end"
             ><ion-icon :icon="add"></ion-icon
           ></ion-button>
+
+          <ion-picker
+            :is-open="pickerOpen"
+            :columns="pickerCols"
+            :buttons="pickerBtns"
+          ></ion-picker>
+
           <ion-card-subtitle>Subtitle {{ editMode }}</ion-card-subtitle>
           <ion-list>
             <ion-item v-for="(ex, exNumber) in day" :key="exNumber">
@@ -79,6 +89,7 @@ import {
   IonButton,
   IonIcon,
   IonAlert,
+  IonPicker,
 } from "@ionic/vue";
 
 import { ref, computed, onMounted } from "vue";
@@ -93,9 +104,59 @@ const editMode = computed(() => {
   return store.getters.editMode;
 });
 const data = computed(() => store.getters.data);
+const exercises = computed(() => store.getters.exercises);
 const dayNumberInSpotlight = ref();
 const exNumberInSpotlight = ref();
 const alertOpen = ref(false);
+const pickerOpen = ref(false);
+
+const pickerCols = [
+  {
+    name: "Упражнения",
+    options: exercises.value.map((ex) => {
+      return {
+        text: ex.name,
+        value: ex.id,
+      };
+    }),
+  },
+];
+const pickerBtns = [
+  {
+    text: "Отмена",
+    role: "cancel",
+    handler: () => {
+      togglePicker(false);
+    },
+  },
+  {
+    text: "Добавить",
+    handler: (value) => {
+      store.dispatch("addEx", {
+        dayNumber: dayNumberInSpotlight.value,
+        exId: value.Упражнения.value,
+      });
+      togglePicker(false);
+    },
+  },
+];
+const alertBtns = [
+  {
+    text: "Отмена",
+    role: "cancel",
+    handler: () => {
+      toggleAlert(false);
+    },
+  },
+  {
+    text: "Удалить",
+    role: "confirm",
+    handler: () => {
+      deleteDay(dayNumberInSpotlight.value);
+      toggleAlert(false);
+    },
+  },
+];
 
 //FUNCTIONS
 function deleteEx(dayNumber, exNumber) {
@@ -121,38 +182,34 @@ function toggleModal(dayNumber, exNumber) {
   exNumberInSpotlight.value = exNumber;
 }
 function toggleAlert(state, dayNumber) {
-  console.log(alertOpen.value);
-  if (dayNumber) {
+  if (dayNumber !== undefined) {
     dayNumberInSpotlight.value = dayNumber;
   }
-  if (state) {
+  if (state !== undefined) {
     alertOpen.value = state;
     return;
   } else {
     alertOpen.value = !alertOpen.value;
   }
-  console.log(alertOpen.value);
+}
+function togglePicker(state, dayNumber) {
+  console.log(pickerOpen.value);
+  if (dayNumber !== undefined) {
+    dayNumberInSpotlight.value = dayNumber;
+  }
+  if (state !== undefined) {
+    console.log(state);
+    pickerOpen.value = state;
+    console.log(pickerOpen.value);
+    return;
+  } else {
+    pickerOpen.value = !alertOpen.value;
+  }
 }
 
-const alertBtns = [
-  {
-    text: "Отмена",
-    role: "cancel",
-    handler: () => {
-      toggleAlert(false);
-    },
-  },
-  {
-    text: "Удалить",
-    role: "confirm",
-    handler: () => {
-      deleteDay(dayNumberInSpotlight.value);
-      toggleAlert(false);
-    },
-  },
-];
-
-onMounted(() => {});
+onMounted(() => {
+  console.log(pickerCols);
+});
 </script>
 
 <style scoped>

@@ -218,9 +218,16 @@ const store = createStore({
         payload.weight;
       state.schedule[payload.dayNumber][payload.exNumber].comment =
         payload.comment;
-
-      console.log(state.exInQuestion);
+    },
+    addEx(state, payload) {
       console.log(payload);
+      state.schedule[payload.dayNumber].push({
+        exId: payload.exId,
+        sets: 3,
+        times: 12,
+        weight: "0",
+        comment: "",
+      });
     },
   },
   actions: {
@@ -241,6 +248,9 @@ const store = createStore({
     },
     saveExData(context, payload) {
       context.commit("saveExData", payload);
+    },
+    addEx(context, payload) {
+      context.commit("addEx", payload);
     },
   },
 });
