@@ -52,6 +52,12 @@ const store = createStore({
           comment: "",
           video: "",
         },
+        {
+          id: 9,
+          name: "Отжимания на брусьях",
+          comment: "",
+          video: "otzhimanya_na_brusyah",
+        },
       ],
       schedule: [
         [
@@ -113,6 +119,7 @@ const store = createStore({
             weight: "0",
             comment: "",
           },
+          { exId: 9, sets: 3, times: 12, weight: "0", comment: "" },
         ],
         [
           {
@@ -163,6 +170,7 @@ const store = createStore({
             return exFromList.id === ex.exId;
           });
           result[dayNumber][exNumber].name = exName[0].name;
+          result[dayNumber][exNumber].video = exName[0].video;
         });
       });
       return result;

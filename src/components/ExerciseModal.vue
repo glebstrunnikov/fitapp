@@ -2,7 +2,7 @@
   <ion-modal :is-open="modalOpen">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Modal</ion-title>
+        <ion-title>Упражнение</ion-title>
         <ion-buttons slot="end">
           <ion-button @click="toggleModal()">Close</ion-button></ion-buttons
         >
@@ -30,9 +30,20 @@
         type="comment"
         :initialValue="data[dayNumber][exNumber].comment"
       ></data-input
-      ><ion-buttons>
-        <ion-button @click="saveEx">Сохранить</ion-button></ion-buttons
+      ><ion-toolbar>
+        <ion-button slot="end" @click="saveEx"
+          >Сохранить</ion-button
+        ></ion-toolbar
       >
+      <video
+        id="exersice-video"
+        controls
+        @click="playVideo()"
+        @touchend="playVideo()"
+      >
+        <source :src="videoUrl" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </ion-content>
   </ion-modal>
 </template>
@@ -47,17 +58,20 @@ import {
   IonButtons,
   IonButton,
 } from "@ionic/vue";
-import { computed, defineProps, onMounted } from "vue";
+import { computed, defineProps, onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import DataInput from "./DataInput.vue";
 const store = useStore();
 const props = defineProps(["dayNumber", "exNumber"]);
 const data = computed(() => store.getters.data);
-onMounted(() => {
-  //   console.log(data);
-  //   console.log(data.value[props.dayNumber][props.exNumber]);
-  //   console.log(props.dayNumber);
+const videoUrl = computed(() => {
+  console.log(data.value[props.dayNumber][props.exNumber]);
+  return (
+    "./videos/" + data.value[props.dayNumber][props.exNumber].video + ".mp4"
+  );
 });
+const isPlaying = ref(false);
+
 const modalOpen = computed(() => store.getters.modalOpen);
 const exInQuestion = computed(() => store.getters.exInQuestion);
 function toggleModal() {
@@ -79,4 +93,23 @@ function saveEx() {
   });
   store.dispatch("toggleModal");
 }
+function playVideo() {
+  const video = document.querySelector("video");
+  if (isPlaying.value) {
+    video.pause();
+  } else {
+    video.play();
+  }
+  isPlaying.value = !isPlaying.value;
+}
+
+onMounted(() => {
+  console.log(video);
+});
 </script>
+
+<style scoped>
+video {
+  width: 100%;
+}
+</style>

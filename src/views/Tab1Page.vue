@@ -1,5 +1,5 @@
 <template>
-  <ion-page @click="console.log('day in sl: ', dayNumberInSpotlight)">
+  <ion-page>
     <ion-header>
       <ion-toolbar>
         <ion-title>Расписание тренировок</ion-title>
@@ -99,7 +99,7 @@ import {
   IonPicker,
 } from "@ionic/vue";
 
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { trashOutline, pencilOutline, close, add, sunny } from "ionicons/icons";
 import ExerciseModal from "../components/ExerciseModal.vue";
@@ -203,23 +203,16 @@ function toggleAlert(state, dayNumber) {
   }
 }
 function togglePicker(state, dayNumber) {
-  console.log(pickerOpen.value);
   if (dayNumber !== undefined) {
     dayNumberInSpotlight.value = dayNumber;
   }
   if (state !== undefined) {
-    console.log(state);
     pickerOpen.value = state;
-    console.log(pickerOpen.value);
     return;
   } else {
     pickerOpen.value = !alertOpen.value;
   }
 }
-
-onMounted(() => {
-  console.log(pickerCols);
-});
 </script>
 
 <style scoped>

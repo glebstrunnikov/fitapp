@@ -3,6 +3,7 @@
     <ion-item>
       <ion-input :value="inputValue" label-placement="stacked" :label="label">
         <ion-button
+          v-if="props.type !== 'comment'"
           @click="adjust('minus')"
           fill="clear"
           slot="start"
@@ -16,6 +17,7 @@
         </ion-button>
 
         <ion-button
+          v-if="props.type !== 'comment'"
           @click="adjust('plus')"
           fill="clear"
           slot="end"
