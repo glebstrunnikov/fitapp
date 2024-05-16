@@ -36,6 +36,7 @@
         ></ion-toolbar
       >
       <video
+        v-if="data[dayNumber][exNumber].video"
         id="exersice-video"
         controls
         @click="playVideo()"
@@ -58,17 +59,14 @@ import {
   IonButtons,
   IonButton,
 } from "@ionic/vue";
-import { computed, defineProps, onMounted, ref } from "vue";
+import { computed, defineProps, ref } from "vue";
 import { useStore } from "vuex";
 import DataInput from "./DataInput.vue";
 const store = useStore();
 const props = defineProps(["dayNumber", "exNumber"]);
 const data = computed(() => store.getters.data);
 const videoUrl = computed(() => {
-  console.log(data.value[props.dayNumber][props.exNumber]);
-  return (
-    "./videos/" + data.value[props.dayNumber][props.exNumber].video + ".mp4"
-  );
+  return "./videos/" + data.value[props.dayNumber][props.exNumber].video;
 });
 const isPlaying = ref(false);
 
@@ -86,10 +84,23 @@ function saveEx() {
     dayNumber: props.dayNumber,
     exNumber: props.exNumber,
     exId: exInQuestion.value.exId,
-    sets: exInQuestion.value.sets,
-    times: exInQuestion.value.times,
-    weight: exInQuestion.value.weight ? exInQuestion.value.weight : "",
-    comment: exInQuestion.value.comment ? exInQuestion.value.comment : "",
+    sets: exInQuestion.value.sets
+      ? exInQuestion.value.sets
+      : data.value[props.dayNumber][props.exNumber].sets,
+    times: exInQuestion.value.times
+      ? exInQuestion.value.times
+      : data.value[props.dayNumber][props.exNumber].times,
+    weight:
+      exInQuestion.value.weight !== "0" && exInQuestion.value.weight !== 0
+        ? exInQuestion.value.weight
+        : data.value[props.dayNumber][props.exNumber].weight
+        ? data.value[props.dayNumber][props.exNumber].weight
+        : 0,
+    comment: exInQuestion.value.comment.length
+      ? exInQuestion.value.comment
+      : data.value[props.dayNumber][props.exNumber].comment
+      ? data.value[props.dayNumber][props.exNumber].comment
+      : "",
   });
   store.dispatch("toggleModal");
 }
@@ -102,10 +113,6 @@ function playVideo() {
   }
   isPlaying.value = !isPlaying.value;
 }
-
-onMounted(() => {
-  console.log(video);
-});
 </script>
 
 <style scoped>

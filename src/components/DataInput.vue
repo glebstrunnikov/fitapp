@@ -1,7 +1,12 @@
 <template>
   <ion-list>
     <ion-item>
-      <ion-input :value="inputValue" label-placement="stacked" :label="label">
+      <ion-input
+        @input="setValue()"
+        v-model="inputValue"
+        label-placement="stacked"
+        :label="label"
+      >
         <ion-button
           v-if="props.type !== 'comment'"
           @click="adjust('minus')"
@@ -38,6 +43,9 @@ import { useStore } from "vuex";
 const props = defineProps(["label", "initialValue", "type"]);
 const store = useStore();
 const inputValue = ref(props.initialValue);
+function setValue() {
+  store.dispatch("setExInQuestion", { [props.type]: inputValue.value });
+}
 function adjust(sign) {
   if (props.type === "weight" && typeof inputValue.value === String) {
     inputValue.value = inputValue.value.replaceAll(/($\d+).*^/g, /$1/);
@@ -48,6 +56,9 @@ function adjust(sign) {
     ? (inputValue.value = Number(inputValue.value) + 1)
     : (inputValue.value = Number(inputValue.value) - 1);
 
-  store.dispatch("setExInQuestion", { [props.type]: inputValue.value });
+  setValue();
+  // setInterval(() => {
+  //   console.log(inputValue.value);
+  // }, 2000);
 }
 </script>

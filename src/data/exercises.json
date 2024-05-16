@@ -3,13 +3,13 @@
         "id": 1,
         "name": "Разгибание ног",
         "comment": "",
-        "video": ""
+        "video": "razgibanie_nog.mp4"
     },
     {
         "id": 2,
         "name": "Гиперэкстензия",
         "comment": "",
-        "video": ""
+        "video": "giperekstenziya.mp4"
     },
     {
         "id": 3,
@@ -21,30 +21,102 @@
         "id": 4,
         "name": "Жим штанги лежа",
         "comment": "",
-        "video": ""
+        "video": "zhim_shtangi_loyzha.mp4"
     },
     {
         "id": 5,
         "name": "Разгибание рук в вертикальном блоке",
         "comment": "",
-        "video": ""
+        "video": "razgibanie_ruk_v_vertikalnom_bloke.mp4"
     },
     {
         "id": 6,
         "name": "Подъем штанги к подбородку",
         "comment": "aka протяжка. Локти не поднимаются выше плеч",
-        "video": ""
+        "video": "podyom_shtangi_k_podborodku.mp4"
     },
     {
         "id": 7,
         "name": "Подъем ног в висе",
         "comment": "",
-        "video": ""
+        "video": "podyom_nog_v_vise.mp4"
     },
     {
         "id": 8,
         "name": "Жим ногами",
         "comment": "",
+        "video": "zhim_nogami.mp4"
+    },
+    {
+        "id": 9,
+        "name": "Становая тяга",
+        "comment": "",
+        "video": "stanovaya_tyaga.mp4"
+    },
+    {
+        "id": 10,
+        "name": "Тяга на вертикальном блоке, обратный хват",
+        "comment": "руки на ширине плеч",
+        "video": "tyaga_na_vertikalnom_bloke_obratniy_hvat.mp4"
+    },
+    {
+        "id": 11,
+        "name": "Сведение рук в тренажере",
+        "comment": "тренажер \"Бабочка\"",
+        "video": "svedeniye_ruk_v_trenazhore.mp4"
+    },
+    {
+        "id": 12,
+        "name": "Жим гантелей на наклонной скамье",
+        "comment": "угол примерно 35 градусов",
+        "video": "zhim_na_naklonnoy_skamye.mp4"
+    },
+    {
+        "id": 13,
+        "name": "Подъем гантелей через стороны",
+        "comment": "",
+        "video": "podyom_ganteley_cherez_storony.mp4"
+    },
+    {
+        "id": 14,
+        "name": "Разведение рук в кроссовере",
+        "comment": "Высоту блоков в кроссовере настраиваешь по высоте плечевых суставов. Ручки снимаешь, берешься прям за карабины. Правой рукой берешь левый блок, левой правый. Удерживая руки так, чтобы локти и кисти были на одном уровне,слегка согнутыми в локтях , плечевые суставы немного выше, разводишь не меняя углы в локтевом суставе",
         "video": ""
+    },
+    {
+        "id": 15,
+        "name": "Сгибание ног",
+        "comment": "",
+        "video": "sgibanie_nog.mp4"
+    },
+    {
+        "id": 16,
+        "name": "Тяга на горизонтальном блоке к животу",
+        "comment": "узкий хват",
+        "video": "tyaga_na_gorizontalnom_bloke_k_zhivotu.mp4"
+    },
+    {
+        "id": 17,
+        "name": "Тяга на горизонтальном блоке к груди",
+        "comment": "или Т-тяга штанги",
+        "video": "t_tyaga.mp4"
+    },
+    {
+        "id": 18,
+        "name": "Сгибание рук со штангой",
+        "comment": "стоя, EZ-гриф, хват на ширине плеч",
+        "video": "sgibanye_ruk_so_shtangoy.mp4"
+    },
+    {
+        "id": 19,
+        "name": "Жим гантелей лежа",
+        "comment": "",
+        "video": "zhim_ganteley_lezha.mp4"
+    },
+    {
+        "id": 20,
+        "name": "Отжимания на брусьях",
+        "comment": "",
+        "video": "skruchivaniya_na_polu.mp4"
     }
 ]

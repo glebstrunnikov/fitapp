@@ -3,6 +3,9 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Расписание тренировок</ion-title>
+        <button style="font-size: 30px; margin: 30px" @click="testReq">
+          test
+        </button>
         <ion-button
           v-if="editMode"
           :color="editBtnColor"
@@ -99,10 +102,11 @@ import {
   IonPicker,
 } from "@ionic/vue";
 
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { trashOutline, pencilOutline, close, add, sunny } from "ionicons/icons";
 import ExerciseModal from "../components/ExerciseModal.vue";
+
 const store = useStore();
 
 // VARS
@@ -166,6 +170,12 @@ const alertBtns = [
 ];
 
 //FUNCTIONS
+
+function testReq() {
+  console.log("testReq initiated");
+  store.dispatch("loadLocalData");
+}
+
 function deleteEx(dayNumber, exNumber) {
   store.dispatch({
     type: "deleteEx",
@@ -213,7 +223,19 @@ function togglePicker(state, dayNumber) {
     pickerOpen.value = !alertOpen.value;
   }
 }
+
+onMounted(() => {
+  store.dispatch("loadLocalData");
+});
 </script>
 
 <style scoped>
 </style>
+
+
+// 1. Цифры не вводятся с клавиатуры
+// 2. Сдедать изменение цифр по лонг тапу
+// 3. Сделать импорт-экспорт расписания
+// 4. Переделать базу на сервере, добавить таймстемпы
+// 5. Доделать синхронизацию
+// 6 Исправить ошибку NaN после ввода текста в инпут
