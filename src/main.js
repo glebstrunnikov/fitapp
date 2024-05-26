@@ -25,7 +25,21 @@ import "@ionic/vue/css/display.css";
 import "./theme/variables.css";
 import "./theme/core.css";
 
-const app = createApp(App).use(IonicVue).use(router).use(store);
+const app = createApp(App).use(IonicVue).use(router);
+
+// Add a listener for the custom event
+window.addEventListener("appUrlOpen", (event) => {
+  const url = event.detail.url;
+  const params = new URL(url).searchParams;
+  const id = params.get("id");
+
+  // Navigate to the appropriate route and pass the ID
+  if (id) {
+    router.push({ path: "/tabs/tab2", query: { id: id } });
+  }
+});
+
+app.use(store);
 
 router.isReady().then(() => {
   app.mount("#app");

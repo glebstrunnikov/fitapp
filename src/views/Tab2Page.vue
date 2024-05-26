@@ -3,6 +3,8 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Tab 2</ion-title>
+        hello
+        {{ id }}
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -26,4 +28,19 @@ import {
   IonContent,
 } from "@ionic/vue";
 import ExploreContainer from "@/components/ExploreContainer.vue";
+import { ref, onMounted, watch } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const id = ref(route.query.id);
+
+watch(
+  () => route.query.id,
+  (newId) => {
+    id.value = newId;
+  }
+);
+onMounted(() => {
+  console.log("tab 2 mounted");
+});
 </script>

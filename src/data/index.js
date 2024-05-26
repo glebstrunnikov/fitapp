@@ -2,7 +2,8 @@ import { createStore } from "vuex";
 import exercisesDummy from "./exercises.json";
 import { Preferences } from "@capacitor/preferences";
 import dummy from "./dummy.json";
-const DB_ENDPOINT = "http://localhost:3000/gym";
+const DB_ENDPOINT = "https://glebstrunnikov.com/gym";
+// const DB_ENDPOINT = "http://localhost:3000";
 async function setSchedule(data) {
   console.log(data);
 
@@ -55,11 +56,12 @@ async function getSchedule(userId) {
   const localData = pref.value ? JSON.parse(pref.value) : null;
   const localTime = time.value ? JSON.parse(time.value) : null;
   try {
+    console.log(userId);
     const response = await fetch(DB_ENDPOINT + "?id=" + userId, {
       method: "GET",
       headers: { "content-type": "application/json" },
     });
-
+    console.log("privet2");
     const webResponse = response ? await response.json() : null;
     const webData = JSON.parse(webResponse[0][0].user_data).days;
     console.log(webData);
@@ -183,7 +185,8 @@ const store = createStore({
       ],
       // exercises: exercisesDummy,
       exercises: [],
-      userId: 210594077,
+      // userId: 210594077,
+      userId: null,
       editMode: false,
       modalOpen: false,
       exInQuestion: { exId: 0, sets: 0, times: 0, weight: "0", comment: "" },
@@ -307,6 +310,16 @@ const store = createStore({
     //     state.time = payload;
     //   } else state.time = new Date().getTime();
     // },
+    setUserId(state, payload) {
+      console.log(payload);
+      Preferences.set({
+        key: "userId",
+        value: JSON.stringify(payload),
+      });
+      state.userId = payload;
+      getExes();
+      getSchedule(payload);
+    },
   },
   actions: {
     loadLocalData(context) {
@@ -339,6 +352,9 @@ const store = createStore({
     // updateTime(context, payload) {
     //   context.commit("updateTime", payload);
     // },
+    setUserId(content, payload) {
+      content.commit("setUserId", payload);
+    },
   },
 });
 

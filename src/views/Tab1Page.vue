@@ -3,9 +3,9 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Расписание тренировок</ion-title>
-        <button style="font-size: 30px; margin: 30px" @click="testReq">
+        <!-- <button style="font-size: 30px; margin: 30px" @click="testReq">
           test
-        </button>
+        </button> -->
         <ion-button
           v-if="editMode"
           :color="editBtnColor"
